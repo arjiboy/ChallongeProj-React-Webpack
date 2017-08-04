@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
 	entry: './src/Index.js',
@@ -15,9 +16,9 @@ module.exports = {
     			use:[
                     {
                     loader: "babel-loader",
-                    options: {
+                    /*options: {
                         presets: ['es2015','react']
-                    }}
+                    }*/}
                 ]
     		},
     		{ 
@@ -28,6 +29,14 @@ module.exports = {
                 ]  			
     		}
   		]
-	}
+	},
+    plugins: [
+    new webpack.DefinePlugin({
+        'process.env': {
+            NODE_ENV: JSON.stringify('production')
+        }
+    }),
+    new webpack.optimize.UglifyJsPlugin()
+  ]
 }
 	
